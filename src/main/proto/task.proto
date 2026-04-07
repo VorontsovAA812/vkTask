@@ -1,13 +1,17 @@
 syntax = "proto3";
 
+package com.vorontsov.task;
+
 option java_multiple_files = true;
 option java_package = "com.vorontsov.task";
-
-package task;
+option java_outer_classname = "TaskProto";
 
 service StorageService {
-  rpc Count (Empty) returns (CountResponse);
-  rpc Range (RangeRequest) returns (stream Entry);
+  rpc count(Empty) returns (CountResponse);
+  rpc range(RangeRequest) returns (stream Entry);
+  rpc put(Entry) returns (Empty);
+  rpc get(KeyRequest) returns (Entry);
+  rpc delete(KeyRequest) returns (Empty);
 }
 
 message Empty {}
@@ -24,4 +28,7 @@ message RangeRequest {
 message Entry {
   string key = 1;
   string value = 2;
+}
+message KeyRequest {
+  string key = 1;
 }
